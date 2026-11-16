@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abhinav QR Maker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+body{background:#101827;color:white;font-family:Arial;text-align:center;padding:20px}
+.box{max-width:400px;margin:30px auto;background:#1e293b;padding:25px;border-radius:18px}
+h1{color:#38bdf8}
+input{width:90%;padding:14px;border:0;border-radius:9px;margin:15px 0}
+button{padding:13px 20px;border:0;border-radius:9px;background:#0ea5e9;color:white;font-weight:bold;margin:8px}
+#qrcode{background:white;padding:15px;margin:20px auto;width:max-content}
+</style>
+</head>
+<body>
+<div class="box">
+<h1>Abhinav QR Maker</h1>
+<p>अपना Text या Link डालें</p>
+<input id="txt" placeholder="अपना Link डालें">
+<br>
+<button onclick="makeQR()">Create QR</button>
+<div id="qrcode"></div>
+<button onclick="downloadQR()">Download QR</button>
+</div>
+<script>
+function makeQR(){
+let t=document.getElementById("txt").value.trim();
+if(!t){alert("पहले कुछ लिखें");return;}
+if(typeof QRCode==="undefined"){alert("Internet चालू करें");return;}
+let q=document.getElementById("qrcode");
+q.innerHTML="";
+new QRCode(q,{text:t,width:200,height:200});
+}
+function downloadQR(){
+let canvas=document.querySelector("#qrcode canvas");
+if(!canvas){alert("पहले QR बनाएं");return;}
+let a=document.createElement("a");
+a.href=canvas.toDataURL("image/png");
+a.download="Abhinav-QR.png";
+a.click();
+}
+</script>
+</body>
+</html>
